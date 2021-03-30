@@ -5,7 +5,7 @@ import { User } from "../entity/User";
 
 class UserController {
 
-    private userRepository = getRepository(User);
+    
 
     public getAll = async (
         req: Request,
@@ -14,7 +14,9 @@ class UserController {
     ): Promise<Response> => {
         try {
 
-            const users = await this.userRepository.find();
+            const userRepository = getRepository(User);
+
+            const users = await userRepository.find();
 
             return res.json(users);
 
@@ -31,15 +33,18 @@ class UserController {
         next: NextFunction
     ): Promise<Response> => {
         try {
+
+            const userRepository = getRepository(User);
+
             const { firstName, lastName, age } = req.body;
 
-            const userCreate = this.userRepository.create({
+            const userCreate = userRepository.create({
                 firstName,
                 lastName,
                 age,
             });
 
-            const results = await this.userRepository.save(userCreate);
+            const results = await userRepository.save(userCreate);
 
             return res.send(results);
         } catch (error) {

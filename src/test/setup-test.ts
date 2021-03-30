@@ -1,5 +1,5 @@
 import { createConnection, getConnectionOptions, Connection } from "typeorm";
-import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions";
+import { MysqlConnectionOptions } from "typeorm/driver/mysql/MysqlConnectionOptions";
 import { randomBytes } from "crypto";
 
 const databaseName = `test_${randomBytes(8).toString("hex")}`;
@@ -17,7 +17,7 @@ export function setup() {
       await masterConn.query(`CREATE DATABASE ${databaseName};`);
 
       connection = await createConnection({
-        ...((await getConnectionOptions()) as PostgresConnectionOptions),
+        ...((await getConnectionOptions()) as MysqlConnectionOptions),
         database: databaseName,
         logging: false,
         migrationsRun: true,
