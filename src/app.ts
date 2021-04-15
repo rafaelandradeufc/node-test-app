@@ -1,6 +1,5 @@
 
 import express = require("express");
-import bodyParser = require("body-parser");
 import cors = require("cors");
 import routes from "./routes/index.routes";
 
